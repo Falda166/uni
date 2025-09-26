@@ -11,11 +11,6 @@ public class Bin2Dez {
             digits[i] = Character.getNumericValue(Bin.charAt(i));   // Inserting the values to the new int[] variable
         }
 
-        // Printing the new array to show it to the user
-        for (int d : digits) {
-            System.out.print(d + " ");
-        }
-
         return digits;  // Returning the generated array
     }
 
@@ -25,7 +20,6 @@ public class Bin2Dez {
         int Dez = 0;
         // Iterating through the Bin array
         for (int i = 0; i < Bin.length; i++) {
-            System.out.println(Encoder[i]);
             if (Bin[i] == 1) {
                 Dez = Dez + Encoder[i]; // Adding the Dez value up to generate the final number
             }
@@ -39,6 +33,6 @@ public class Bin2Dez {
 
         int Dez = Bin2Dez(converter(DezString));    // This is the main part of the script
 
-        System.out.println(Dez);    // Printing out the final converted number
+        System.out.println("The Dezimal number is: " + Dez);    // Printing out the final converted number
     }
 }
