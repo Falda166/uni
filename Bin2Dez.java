@@ -7,8 +7,10 @@ public class Bin2Dez {
         }
 
         int[] digits = new int[Bin.length()];   // Generating a new int[] variable
+        int j = Bin.length();
         for (int i = 0; i < Bin.length(); i++) {
-            digits[i] = Character.getNumericValue(Bin.charAt(i));   // Inserting the values to the new int[] variable
+            j--;
+            digits[i] = Character.getNumericValue(Bin.charAt(j));   // Inserting the values to the new int[] variable
         }
 
         return digits;  // Returning the generated array
@@ -28,11 +30,13 @@ public class Bin2Dez {
     }
 
     public static void main(String[] args) {
-        System.out.print("Insert the Binary Number>");
-        String DezString = System.console().readLine();
+        while (true) {
+            System.out.print("Insert the Binary Number>");
+            String DezString = System.console().readLine();
 
-        int Dez = Bin2Dez(converter(DezString));    // This is the main part of the script
+            int Dez = Bin2Dez(converter(DezString));    // This is the main part of the script
 
-        System.out.println("The Dezimal number is: " + Dez);    // Printing out the final converted number
+            System.out.println("The Dezimal number is: " + Dez);    // Printing out the final converted number
+        }
     }
 }
