@@ -9,6 +9,10 @@ import javax.imageio.ImageIO;
 
 import java.util.Stack;
 
+import java.io.PrintWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
+
 public class Test {
   public static void typeString(Robot robot, String text) throws InterruptedException {
     for (char c : text.toCharArray()) {
@@ -99,9 +103,52 @@ public class Test {
     return new Rectangle(bestLeft, bestTop, bestRight - bestLeft + 1, bestBottom - bestTop + 1);
   }
 
-  public static void main(String[] args) throws AWTException, InterruptedException, InterruptedException {
+  public static void saveRectangle() throws InterruptedException, AWTException {
     Robot robot = new Robot();
+    Thread.sleep(7000);
+    int[][] whiteMatrix = null;
+
     Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
+    BufferedImage screenshot = robot.createScreenCapture(screenRect);
+    whiteMatrix = getWhitePixels(screenshot);
+    Rectangle rect = findLargestRectangle(whiteMatrix);
+
+    try (PrintWriter writer = new PrintWriter("./coords.txt")) {
+      writer.println(rect.x + ";" + rect.y + ";" + rect.width + ";" + rect.height);
+    } catch (Exception ex) {
+      ex.printStackTrace();
+    }
+  }
+
+  public static BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight) {
+    BufferedImage resizedImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
+    Graphics2D g = resizedImage.createGraphics();
+    g.drawImage(originalImage, 0, 0, targetWidth, targetHeight, null);
+    g.dispose();
+    return resizedImage;
+  }
+
+  public static BufferedImage toBlackAndWhite(BufferedImage src, int threshold) {
+        int width = src.getWidth();
+        int height = src.getHeight();
+        BufferedImage bw = new BufferedImage(width, height, BufferedImage.TYPE_BYTE_BINARY);
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                Color c = new Color(src.getRGB(x, y));
+                int gray = (c.getRed() + c.getGreen() + c.getBlue()) / 3;
+                if (gray > threshold) {
+                    bw.setRGB(x, y, Color.WHITE.getRGB());
+                } else {
+                    bw.setRGB(x, y, Color.BLACK.getRGB());
+                }
+            }
+        }
+        return bw;
+    }
+
+  public static void main(String[] args) throws AWTException, InterruptedException {
+    Robot robot = new Robot();
 
     //Point point = MouseInfo.getPointerInfo().getLocation();
     // 200 130
@@ -113,48 +160,72 @@ public class Test {
     robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
     robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
 
-    Thread.sleep(100);
+    Thread.sleep(1000);
 
     typeString(robot, "Paint");
 
     robot.keyPress(KeyEvent.VK_ENTER);
     robot.keyRelease(KeyEvent.VK_ENTER);
 
-    Thread.sleep(7000);
-    try {
-      BufferedImage image = ImageIO.read(new File("./image.png"));
-      BufferedImage screenshot = robot.createScreenCapture(screenRect);
-      int[][] whiteMatrix = getWhitePixels(screenshot);
-      Rectangle rect = findLargestRectangle(whiteMatrix);
-      for (int y = rect.y; y < rect.y + rect.height; y++) {
-        for (int x = rect.x; x < rect.x + rect.width; x++) {
-          if (Math.round(Math.random()) == 1) {
-            System.out.println(y + " " + x);
-            robot.mouseMove(x, y);
-            robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-            robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-          }
-      }
-    }
-    } catch (IOException e) {
-      System.err.println("Fehler beim einlesen des Bildes: " + e.getMessage());
-    }
+    //Thread.sleep(10000);
+    //saveRectangle();
 
-    int width = 1920;
-    int height = 1080;
-
-    int x1 = 200, y1 = 130;
-    int x2 = 1150, y2 = 680;
-
-    for (int y = y1; y<=y2; y++) {
-      for (int x = x1; x<=x2; x++) {
-        System.out.println("click");
-        break;
-        //robot.mouseMove(x, y);
-        //robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
-        //robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-      }
+    while (true) {
       break;
+    }
+
+    try (
+      BufferedReader reader = new BufferedReader(new FileReader("./coords.txt"));
+    ) {
+      String line = reader.readLine(); // liest die erste Zeile, z.B. "128;204;1023;479"
+      String[] parts = line.split(";");
+
+      int x = Integer.parseInt(parts[0]);
+      int y = Integer.parseInt(parts[1]);
+      int width = Integer.parseInt(parts[2]);
+      int height = Integer.parseInt(parts[3]);
+
+      BufferedImage resizedImage = resizeImage(ImageIO.read(new File("image.png")), width, height);
+      BufferedImage grayScaleImage = toBlackAndWhite(resizedImage, 128);
+      ImageIO.write(grayScaleImage, "png", new File("output_sw.png"));
+
+      System.out.println("x:" + x + " y:" + y);
+      System.out.println("width: " + width + " height:" + height);
+
+      Thread.sleep(5000);
+      robot.mouseMove(x, y);
+
+
+      for (int j = 0; j < grayScaleImage.getHeight(); j++) {
+      boolean isDrawing = false;
+
+      for (int i = 0; i < grayScaleImage.getWidth(); i++) {
+        int rgb = grayScaleImage.getRGB(i, j);
+        int screenX = x + i;
+        int screenY = y + j;
+
+        if (rgb == Color.BLACK.getRGB()) {
+          robot.mouseMove(screenX, screenY);
+
+          if (!isDrawing) {
+            robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+            isDrawing = true;
+          }
+        } else {
+          if (isDrawing) {
+            robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+            isDrawing = false;
+          }
+        }
+   }
+
+  if (isDrawing) {
+      robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+  }
+      }
+
+    } catch (Exception ex) {
+      ex.printStackTrace();
     }
   }
 }
