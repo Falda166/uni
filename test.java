@@ -186,8 +186,8 @@ public class Test {
     robot.keyPress(KeyEvent.VK_ENTER);
     robot.keyRelease(KeyEvent.VK_ENTER);
 
-    Thread.sleep(30000);
-    saveRectangle();
+    //Thread.sleep(30000);
+    //saveRectangle();
 
     while (true) {
       break;
