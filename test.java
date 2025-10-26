@@ -121,11 +121,28 @@ public class Test {
   }
 
   public static BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight) {
-    BufferedImage resizedImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
-    Graphics2D g = resizedImage.createGraphics();
-    g.drawImage(originalImage, 0, 0, targetWidth, targetHeight, null);
+    // Neues Bild mit weißem Hintergrund
+    BufferedImage resultImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
+    Graphics2D g = resultImage.createGraphics();
+
+    // Hintergrund weiß füllen
+    g.setColor(Color.WHITE);
+    g.fillRect(0, 0, targetWidth, targetHeight);
+
+    int imgWidth = originalImage.getWidth();
+    int imgHeight = originalImage.getHeight();
+
+    if (imgWidth <= targetWidth && imgHeight <= targetHeight) {
+        // Bild ist kleiner: Zentriert einfügen ohne Skalierung
+        int x = (targetWidth - imgWidth) / 2;
+        int y = (targetHeight - imgHeight) / 2;
+        g.drawImage(originalImage, x, y, imgWidth, imgHeight, null);
+    } else {
+        // Bild ist größer: skalieren auf Zielgröße (wie vorher)
+        g.drawImage(originalImage, 0, 0, targetWidth, targetHeight, null);
+    }
     g.dispose();
-    return resizedImage;
+    return resultImage;
   }
 
   public static BufferedImage toBlackAndWhite(BufferedImage src, int threshold) {
@@ -150,12 +167,14 @@ public class Test {
   public static void main(String[] args) throws AWTException, InterruptedException {
     Robot robot = new Robot();
 
-    //Point point = MouseInfo.getPointerInfo().getLocation();
+    Thread.sleep(5000);
+    Point point = MouseInfo.getPointerInfo().getLocation();
+    System.out.println(point);
     // 200 130
     // U 1150 680
 
 
-    int[] windows = {772, 304};
+    int[] windows = {775, 350};
     robot.mouseMove(windows[1], windows[0]);
     robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
     robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
@@ -167,8 +186,8 @@ public class Test {
     robot.keyPress(KeyEvent.VK_ENTER);
     robot.keyRelease(KeyEvent.VK_ENTER);
 
-    Thread.sleep(10000);
-    saveRectangle();
+    //Thread.sleep(30000);
+    //saveRectangle();
 
     while (true) {
       break;
@@ -185,7 +204,7 @@ public class Test {
       int width = Integer.parseInt(parts[2]);
       int height = Integer.parseInt(parts[3]);
 
-      BufferedImage resizedImage = resizeImage(ImageIO.read(new File("image.png")), width, height);
+      BufferedImage resizedImage = resizeImage(ImageIO.read(new File("./local/bild.png")), width, height);
       BufferedImage grayScaleImage = toBlackAndWhite(resizedImage, 128);
       ImageIO.write(grayScaleImage, "png", new File("output_sw.png"));
 
