@@ -1,0 +1,15 @@
+C:\PRJ\uni\Arbeit\einfuring\bin\Debug\net8.0\einfuring.exe
+C:\PRJ\uni\Arbeit\einfuring\bin\Debug\net8.0\einfuring.deps.json
+C:\PRJ\uni\Arbeit\einfuring\bin\Debug\net8.0\einfuring.runtimeconfig.json
+C:\PRJ\uni\Arbeit\einfuring\bin\Debug\net8.0\einfuring.dll
+C:\PRJ\uni\Arbeit\einfuring\bin\Debug\net8.0\einfuring.pdb
+C:\PRJ\uni\Arbeit\einfuring\obj\Debug\net8.0\einfuring.GeneratedMSBuildEditorConfig.editorconfig
+C:\PRJ\uni\Arbeit\einfuring\obj\Debug\net8.0\einfuring.AssemblyInfoInputs.cache
+C:\PRJ\uni\Arbeit\einfuring\obj\Debug\net8.0\einfuring.AssemblyInfo.cs
+C:\PRJ\uni\Arbeit\einfuring\obj\Debug\net8.0\einfuring.csproj.CoreCompileInputs.cache
+C:\PRJ\uni\Arbeit\einfuring\obj\Debug\net8.0\einfuring.sourcelink.json
+C:\PRJ\uni\Arbeit\einfuring\obj\Debug\net8.0\einfuring.dll
+C:\PRJ\uni\Arbeit\einfuring\obj\Debug\net8.0\refint\einfuring.dll
+C:\PRJ\uni\Arbeit\einfuring\obj\Debug\net8.0\einfuring.pdb
+C:\PRJ\uni\Arbeit\einfuring\obj\Debug\net8.0\einfuring.genruntimeconfig.cache
+C:\PRJ\uni\Arbeit\einfuring\obj\Debug\net8.0\ref\einfuring.dll
