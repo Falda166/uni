@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\PRJ\\uni\\Arbeit\\csvReader\\csvReader.csproj": {}
+    "C:\\PRJ\\uni\\Arbeit\\einfuring\\einfuring.csproj": {}
   },
   "projects": {
-    "C:\\PRJ\\uni\\Arbeit\\csvReader\\csvReader.csproj": {
+    "C:\\PRJ\\uni\\Arbeit\\einfuring\\einfuring.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\PRJ\\uni\\Arbeit\\csvReader\\csvReader.csproj",
-        "projectName": "csvReader",
-        "projectPath": "C:\\PRJ\\uni\\Arbeit\\csvReader\\csvReader.csproj",
+        "projectUniqueName": "C:\\PRJ\\uni\\Arbeit\\einfuring\\einfuring.csproj",
+        "projectName": "einfuring",
+        "projectPath": "C:\\PRJ\\uni\\Arbeit\\einfuring\\einfuring.csproj",
         "packagesPath": "C:\\Users\\Sohn\\.nuget\\packages\\",
-        "outputPath": "C:\\PRJ\\uni\\Arbeit\\csvReader\\obj\\",
+        "outputPath": "C:\\PRJ\\uni\\Arbeit\\einfuring\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Sohn\\AppData\\Roaming\\NuGet\\NuGet.Config"
