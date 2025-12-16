@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("einfuring")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7b9fd63f4a17c6d1f14b58ac20548b08efb8aae3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1d77f251f9dcbe581ac500f104bf1fe0c98797a8")]
 [assembly: System.Reflection.AssemblyProductAttribute("einfuring")]
 [assembly: System.Reflection.AssemblyTitleAttribute("einfuring")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
